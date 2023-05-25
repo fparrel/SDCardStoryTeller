@@ -1,0 +1,2 @@
+Application to read Lunii (registered mark) stories from the SDCard. Built for people which a broken device who want a way to keep listening to the stories they bought. Open the device with a Torx 6 screwdriver, take out the SDCard, insert the SDCard in an Android phone or tablet, and launch the application. No that if your device is under two years old, it's still under guarantee, so you'll better contact customer service who will send you a new device if the damage is covered by legal guarantee.
+
