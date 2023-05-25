@@ -1,7 +1,11 @@
-# SDCard StoryTeller
-====================
+SDCard StoryTeller
+==================
 This software allows to read Lunii StoryTeller content from an SDCard inserted in an Android Tablet 
 or Phone.
+
+CONTEXT
+-------
+
 I've done if after the genuine device got broken after the guarantee period and too difficult to fix.
 Indeed, I've fixed it 3 times, but don't manage to fix it one more time.
 The V2 of device is too weak for our usage, so buying a new one was not an option until a stronger 
@@ -39,7 +43,9 @@ integration of this code into Android development environment and the GUI develo
 USAGE
 -----
 
-Import the repository on Android Studio, build the .apk, transfer and install it in your device.
-Open your Lunii with a Torx 6 screwdriver, remove the SDCard, and put it into your device.
+Import the repository on Android Studio, build the .apk, transfer and install it in your device 
+(you'll need computer science knowledge for those steps).
+Open your broken and out of guarantee device with a Torx 6 screwdriver, remove the SDCard, and put 
+it into your device.
 
 Pre-build .apk and/or publication on f-droid store may be done in the future.
