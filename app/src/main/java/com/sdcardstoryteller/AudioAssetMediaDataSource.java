@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.sdcardstoryteller;
 
 import android.media.MediaDataSource;
@@ -18,7 +24,7 @@ public class AudioAssetMediaDataSource extends MediaDataSource {
 
     private byte[] decryptedBlock = null;
 
-    private AudioAsset asset;
+    private final AudioAsset asset;
 
     private FileInputStream fis = null;
 

@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package com.sdcardstoryteller;
 
 import java.io.File;
@@ -89,7 +95,7 @@ public class XXTEACipher {
         //System.out.println("Block decrypted");
         bb.put(decryptedBlock);
         if (datalen>512) {
-            int n = -1;
+            int n;
             do {
                 n = fs.read(block,0,512);
                 if (n>0) {
