@@ -1,1 +1,1 @@
-This application allows to play stories in Lunii (registered mark) format from the SDCard
+Play stories in Lunii® format from the SDCard
