@@ -154,6 +154,7 @@ fun PlayNode(node : StageNode, activity: MainActivity, forceMenuItem: Boolean = 
                     }
                 },
                 onLongClick = {
+                    println("long click on ${node.uuid}")
                     activity.changeStage(node.okTransition.actionNode.options[0])
                 }
             )
@@ -195,6 +196,13 @@ fun PlayNode(node : StageNode, activity: MainActivity, forceMenuItem: Boolean = 
                 setOnCompletionListener { release() }
                 prepareAsync()
                 setOnPreparedListener { start() }
+                if (node.controlSettings.isAutoJumpEnabled) {
+                    setOnCompletionListener {
+                        if (node.okTransition != null) {
+                            activity.changeStage(node.okTransition.actionNode.options[0])
+                        }
+                    }
+                }
             }
             Button(onClick = {
                 if (mp.isPlaying) {
@@ -206,7 +214,9 @@ fun PlayNode(node : StageNode, activity: MainActivity, forceMenuItem: Boolean = 
                 Text("Pause/Reprendre")
             }
             Button(onClick = {
-                mp.stop()
+                if (mp.isPlaying) {
+                    mp.stop()
+                }
                 if (node.homeTransition != null) {
                     activity.changeStage(node.homeTransition.actionNode.options[0])
                 } else {
@@ -215,7 +225,20 @@ fun PlayNode(node : StageNode, activity: MainActivity, forceMenuItem: Boolean = 
             }) {
                 Text("RETOUR")
             }
-        }
+            if (node.controlSettings.isOkEnabled) {
+                Button(onClick = {
+                    if (mp.isPlaying) {
+                        mp.stop()
+                    }
+                    if (node.okTransition != null) {
+                        activity.changeStage(node.okTransition.actionNode.options[0])
+                    }
+                }
+                ) {
+                    Text("OK")
+                }
+            }
+            }
     } else {
         Text("Unknown node type")
     }
@@ -234,7 +257,7 @@ fun Story(dir: File, activity: MainActivity) {
     if (storyPack != StoryPack.EMPTY) {
         PlayNode(node = storyPack.stageNodes[0], activity)
         //Text("story ${storyPack.uuid}",color=Color.White)
-        //if (storyPack.uuid=="B27CE938") {
+        //if (storyPack.uuid=="8D871110") {
         //    println("story: ${storyPack.uuid}")
         //    for (node in storyPack.stageNodes) {
         //        println("node: $node")
