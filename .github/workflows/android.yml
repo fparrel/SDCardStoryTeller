@@ -31,7 +31,7 @@ jobs:
         env:
           BUILD_TOOLS_VERSION: "30.0.2"
       - name: Releasing using Hub
-        run: hub release create -a ./${APP_FOLDER}/build/outputs/apk/release/**.apk -m "v${GITHUB_REF##*/}" ${GITHUB_REF##*/}
+        run: hub release create -a ./${APP_FOLDER}/build/outputs/apk/release/app-release-unsigned-signed.apk -m "v${GITHUB_REF##*/}" ${GITHUB_REF##*/}
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           APP_FOLDER: app
