@@ -87,11 +87,11 @@ class MainActivity : ComponentActivity() {
                             if (Environment.isExternalStorageManager()) {
                                 val files: Array<out File>? = path.listFiles()
                                 if (files == null) {
-                                    Text("Répertoire .content trouvé mais aucune histoire à l'intérieur", color = Color.Yellow)
+                                    Text(getString(R.string.empty_content), color = Color.Yellow)
                                 } else {
                                     Column() {
                                         Text(
-                                            "Appui court pour écouter le titre, appui long pour jouer l'histoire",
+                                            getString(R.string.howto_use_the_app),
                                             color = Color.White
                                         )
                                         for (file in files) {
@@ -101,9 +101,9 @@ class MainActivity : ComponentActivity() {
                                 }
                             } else {
                                 Column() {
-                                    Text("L'application a besoin des droits d'accès à la SDCard, merci de changer ses paramètres", color=Color.White)
+                                    Text(getString(R.string.need_sdcard_access), color=Color.White)
                                     Button(onClick = { reloadStories() }) {
-                                        Text("Réessayer")
+                                        Text(getString(R.string.retry))
                                     }
                                 }
                                 val intent = Intent()
@@ -117,9 +117,9 @@ class MainActivity : ComponentActivity() {
                     }
                     if (!contentfound) {
                         Column() {
-                            Text("Merci d'insérer une carte SD avec du contenu compatible", color=Color.White)
+                            Text(getString(R.string.insert_sdcard_with_compatible_content), color=Color.White)
                             Button(onClick = { reloadStories() }) {
-                                Text("Réessayer")
+                                Text(getString(R.string.retry))
                             }
                         }
                     }
@@ -174,7 +174,7 @@ fun PlayNode(node : StageNode, activity: MainActivity, forceMenuItem: Boolean = 
                     activity.reloadStories()
                 }
             }) {
-                    Text("RETOUR")
+                    Text(activity.getString(R.string.back))
                 }
         }
         val mediaSource = AudioAssetMediaDataSource(node.audio)
@@ -188,7 +188,7 @@ fun PlayNode(node : StageNode, activity: MainActivity, forceMenuItem: Boolean = 
     // Story
     else if(node.image==null && node.audio!=null && node.controlSettings.isPauseEnabled) {
         Column {
-            Text("Histoire en cours (uuid:${node.uuid})", color=Color.White)
+            Text(activity.getString(R.string.playing_story)+" (uuid:${node.uuid})", color=Color.White)
             val mediaSource = AudioAssetMediaDataSource(node.audio)
             val mp = MediaPlayer()
             mp.apply {
@@ -211,7 +211,7 @@ fun PlayNode(node : StageNode, activity: MainActivity, forceMenuItem: Boolean = 
                     mp.start()
                 }
             }) {
-                Text("Pause/Reprendre")
+                Text(activity.getString(R.string.pause_resume))
             }
             Button(onClick = {
                 if (mp.isPlaying) {
@@ -223,7 +223,7 @@ fun PlayNode(node : StageNode, activity: MainActivity, forceMenuItem: Boolean = 
                     activity.reloadStories()
                 }
             }) {
-                Text("RETOUR")
+                Text(activity.getString(R.string.back))
             }
             if (node.controlSettings.isOkEnabled) {
                 Button(onClick = {

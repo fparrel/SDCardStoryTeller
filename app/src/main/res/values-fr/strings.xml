@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SDCard StoryTeller</string>
+    <string name="empty_content">Répertoire .content trouvé mais aucune histoire à l\'intérieur</string>
+    <string name="howto_use_the_app">Appui court pour écouter le titre, appui long pour jouer l\'histoire</string>
+    <string name="need_sdcard_access">L\'application a besoin des droits d\'accès à la SDCard, merci de changer ses paramètres</string>
+    <string name="retry">Réessayer</string>
+    <string name="insert_sdcard_with_compatible_content">Merci d\'insérer une carte SD avec du contenu compatible</string>
+    <string name="back">RETOUR</string>
+    <string name="playing_story">Histoire en cours</string>
+    <string name="pause_resume">Pause/Reprendre</string>
+</resources>
