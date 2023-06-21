@@ -48,4 +48,5 @@ Import the repository on Android Studio, build the .apk, transfer and install it
 Open your broken and out of guarantee device with a Torx 6 screwdriver, remove the SDCard, and put 
 it into your device.
 
-Pre-build .apk and/or publication on f-droid store may be done in the future.
+Pre-build .apk is available on [/releases] and publication on f-droid store is on going.
+
