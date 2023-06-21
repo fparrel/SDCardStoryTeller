@@ -256,6 +256,7 @@ fun Story(dir: File, activity: MainActivity) {
     }
     if (storyPack != StoryPack.EMPTY) {
         PlayNode(node = storyPack.stageNodes[0], activity)
+        // uncomment to dump a story
         //Text("story ${storyPack.uuid}",color=Color.White)
         //if (storyPack.uuid=="8D871110") {
         //    println("story: ${storyPack.uuid}")
