@@ -38,15 +38,13 @@ CREDIT
 
 Based on the wonderful work of https://github.com/marian-m12l/studio
 This work allow me to get all the code for reading sound, images and data. My contribution is the 
-integration of this code into Android development environment and the GUI development.
+integration of this code into Android development environment, the GUI development, the automatic 
+signed .apk build, and the release to f-droid store.
 
 USAGE
 -----
+Download the last .apk file on https://github.com/fparrel/SDCardStoryTeller/releases , and install it on your device
 
-Import the repository on Android Studio, build the .apk, transfer and install it in your device 
-(you'll need computer science knowledge for those steps).
-Open your broken and out of guarantee device with a Torx 6 screwdriver, remove the SDCard, and put 
-it into your device.
+Open your broken and out of guarantee device with a Torx 6 screwdriver, remove the SDCard, and put it into your Android device.
 
-Pre-build .apk is available on [/releases] and publication on f-droid store is on going.
-
+Publication on f-droid store is on going.
