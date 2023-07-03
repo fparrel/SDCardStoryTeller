@@ -3,6 +3,12 @@ SDCard StoryTeller
 This software allows to read Lunii StoryTeller content from an SDCard inserted in an Android Tablet 
 or Phone.
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/com.sdcardstoryteller/)
+
+Or download the latest APK from the [Releases Section](https://github.com/fparrel/SDCardStoryTeller/releases/latest).
+
 CONTEXT
 -------
 
@@ -46,5 +52,3 @@ USAGE
 Download the last .apk file on https://github.com/fparrel/SDCardStoryTeller/releases , and install it on your device
 
 Open your broken and out of guarantee device with a Torx 6 screwdriver, remove the SDCard, and put it into your Android device.
-
-Publication on f-droid store is on going.
