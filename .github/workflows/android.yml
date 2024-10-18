@@ -28,8 +28,6 @@ jobs:
           alias: ${{ secrets.KEY_STORE_ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASS }}
           keyPassword: ${{ secrets.KEY_STORE_PASS }}
-        env:
-          BUILD_TOOLS_VERSION: "30.0.2"
       - name: Releasing using Hub
         run: hub release create -a ./${APP_FOLDER}/build/outputs/apk/release/app-release-unsigned-signed.apk -m "v${GITHUB_REF##*/}" ${GITHUB_REF##*/}
         env:
