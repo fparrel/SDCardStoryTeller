@@ -30,8 +30,8 @@ jobs:
           keyPassword: ${{ secrets.KEY_STORE_PASS }}
         env:
           BUILD_TOOLS_VERSION: "34.0.0"
-      - name: Releasing using Hub
-        run: hub release create -a ./${APP_FOLDER}/build/outputs/apk/release/app-release-unsigned-signed.apk -m "v${GITHUB_REF##*/}" ${GITHUB_REF##*/}
+      - name: Releasing using gh cli
+        run: gh release create "v${GITHUB_REF##*/}" ./${APP_FOLDER}/build/outputs/apk/release/app-release-unsigned-signed.apk
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           APP_FOLDER: app
