@@ -1,5 +1,7 @@
 package com.sdcardstoryteller;
 
+import java.io.Console;
+
 import static com.sdcardstoryteller.XXTEACipher.readCipheredFile;
 
 import com.sdcardstoryteller.model.metadata.StoryPackMetadata;
@@ -25,6 +27,16 @@ public class FsStoryPackReader {
     private static final String SOUND_INDEX_FILENAME = "si";
     private static final String SOUND_FOLDER = "sf" + File.separator;
     private static final String NIGHT_MODE_FILENAME = "nm";
+    private static final String CLEARTEXT_FILENAME = ".cleartext";
+    private static final byte[] CLEARTEXT_RI_BEGINNING = "000\\".getBytes(StandardCharsets.UTF_8);
+
+    private byte[] readFile(Path file, boolean isCleartext) throws IOException {
+        if (isCleartext) {
+            return Files.readAllBytes(file);
+        } else {
+            return readCipheredFile(file);
+        }
+    }
 
     private byte[] readNBytes(DataInputStream dis, int len) throws IOException {
         // Custom implementation of DataInputStream.readNBytes to be compatible with API version
@@ -73,13 +85,16 @@ public class FsStoryPackReader {
         // Night mode is available if file 'nm' exists
         boolean nightModeAvailable = new File(packFolder, NIGHT_MODE_FILENAME).exists();
 
+        // Assets are cleartext if file '.cleartext' exists
+        boolean isCleartext = isCleartext(packFolder, true);
+
         // Load ri, si and li files
         //System.out.println("Reading riContent");
-        byte[] riContent = readCipheredFile(new File(packFolder, IMAGE_INDEX_FILENAME).toPath());
+        byte[] riContent = readFile(new File(packFolder, IMAGE_INDEX_FILENAME).toPath(), isCleartext);
         //System.out.println("Reading siContent");
-        byte[] siContent = readCipheredFile(new File(packFolder, SOUND_INDEX_FILENAME).toPath());
+        byte[] siContent = readFile(new File(packFolder, SOUND_INDEX_FILENAME).toPath(), isCleartext);
         //System.out.println("Reading liContent");
-        byte[] liContent = readCipheredFile(new File(packFolder, LIST_INDEX_FILENAME).toPath());
+        byte[] liContent = readFile(new File(packFolder, LIST_INDEX_FILENAME).toPath(), isCleartext);
 
         // Open 'ni' file
         FileInputStream niFis = new FileInputStream(new File(packFolder, NODE_INDEX_FILENAME));
@@ -148,7 +163,7 @@ public class FsStoryPackReader {
                 byte[] imagePath = Arrays.copyOfRange(riContent, imageAssetIndexInRI*12, imageAssetIndexInRI*12+12);   // Each entry takes 12 bytes
                 String path = new String(imagePath, StandardCharsets.UTF_8);
                 // Read image file
-                byte[] rfContent = readCipheredFile(new File(packFolder, IMAGE_FOLDER+path.replaceAll("\\\\", "/")).toPath());
+                byte[] rfContent = readFile(new File(packFolder, IMAGE_FOLDER+path.replaceAll("\\\\", "/")).toPath(), isCleartext);
                 image = new ImageAsset("image/bmp", rfContent);
             }
             AudioAsset audio = null;
@@ -158,7 +173,6 @@ public class FsStoryPackReader {
                 String path = new String(audioPath, StandardCharsets.UTF_8);
                 // Read audio file
                 Path f = new File(packFolder, SOUND_FOLDER+path.replaceAll("\\\\", "/")).toPath();
-                //byte[] sfContent = readCipheredFile(f);
                 audio = new AudioAsset("audio/mpeg", f);
             }
 
@@ -199,5 +213,26 @@ public class FsStoryPackReader {
         }
 
         return new StoryPack(uuid, factoryDisabled, version, List.copyOf(stageNodes.values()), nightModeAvailable);
+    }
+
+    public boolean isCleartext(File packFolder, boolean fixBrokenCleartext) throws IOException {
+
+        // Assets are cleartext if file '.cleartext' exists
+        boolean isCleartext = new File(packFolder, CLEARTEXT_FILENAME).exists();
+
+        if (fixBrokenCleartext) {
+            // Fix broken story packs with missing .cleartext file
+            byte[] riRawContent = Files.readAllBytes(new File(packFolder, IMAGE_INDEX_FILENAME).toPath());
+            if (!isCleartext && Arrays.equals(riRawContent, 0, CLEARTEXT_RI_BEGINNING.length, CLEARTEXT_RI_BEGINNING, 0, CLEARTEXT_RI_BEGINNING.length)) {
+                //System.out.println("Story pack contains cleartext data but is missing .cleartext file: fixing...");
+
+                // Indicate that files are cleartext
+                new File(packFolder, CLEARTEXT_FILENAME).createNewFile();
+
+                isCleartext = true;
+            }
+        }
+
+        return isCleartext;
     }
 }
