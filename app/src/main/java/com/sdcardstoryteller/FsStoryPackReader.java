@@ -1,12 +1,5 @@
 package com.sdcardstoryteller;
 
-import java.io.Console;
-
-import static com.sdcardstoryteller.XXTEACipher.readCipheredFile;
-
-import com.sdcardstoryteller.model.metadata.StoryPackMetadata;
-import com.sdcardstoryteller.model.*;
-
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,7 +9,22 @@ import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.UUID;
+
+import static com.sdcardstoryteller.XXTEACipher.readCipheredFile;
+import com.sdcardstoryteller.model.ActionNode;
+import com.sdcardstoryteller.model.AudioAsset;
+import com.sdcardstoryteller.model.ControlSettings;
+import com.sdcardstoryteller.model.ImageAsset;
+import com.sdcardstoryteller.model.StageNode;
+import com.sdcardstoryteller.model.StoryPack;
+import com.sdcardstoryteller.model.Transition;
+import com.sdcardstoryteller.model.metadata.StoryPackMetadata;
 
 public class FsStoryPackReader {
 
@@ -86,7 +94,7 @@ public class FsStoryPackReader {
         boolean nightModeAvailable = new File(packFolder, NIGHT_MODE_FILENAME).exists();
 
         // Assets are cleartext if file '.cleartext' exists
-        boolean isCleartext = isCleartext(packFolder, true);
+        boolean isCleartext = isCleartext(packFolder, false);
 
         // Load ri, si and li files
         //System.out.println("Reading riContent");
